@@ -1,0 +1,305 @@
+/* =========================================================
+   ThesisVista — Panel administrador
+   Paleta:
+     --ink      #1B2430  (barra lateral, encabezados)
+     --paper    #EDEEE9  (fondo del contenido)
+     --panel    #FCFBF8  (tarjetas / tablas)
+     --teal     #2F6F62  (acción primaria)
+     --ochre    #C98A3B  (estados pendientes / aviso)
+     --text     #22262B
+     --line     #D8D6CC
+   Tipografía: "Source Serif 4" para títulos, "IBM Plex Sans"
+   para interfaz y datos.
+   ========================================================= */
+
+:root {
+  --ink: #1b2430;
+  --ink-soft: #2a3644;
+  --paper: #ededea;
+  --panel: #fcfbf8;
+  --teal: #2f6f62;
+  --teal-dark: #234f45;
+  --ochre: #c98a3b;
+  --text: #22262b;
+  --text-muted: #5b6470;
+  --line: #d8d6cc;
+  --danger: #a3402f;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 600;
+  margin: 0 0 .4em 0;
+  color: var(--ink);
+}
+
+h1 { font-size: 1.7rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
+
+a { color: var(--teal-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  background: var(--ink);
+  color: #e8e6df;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.brand {
+  font-family: "Source Serif 4", serif;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.brand span {
+  display: block;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: .72rem;
+  color: #a9b3ac;
+  letter-spacing: .02em;
+  margin-top: 4px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav a {
+  color: #cfd3ce;
+  padding: 9px 12px;
+  border-radius: 3px;
+  font-size: .93rem;
+}
+
+.nav a:hover {
+  background: var(--ink-soft);
+  text-decoration: none;
+}
+
+.nav a.active {
+  background: var(--teal);
+  color: #fff;
+}
+
+.sidebar .who {
+  margin-top: auto;
+  border-top: 1px solid #33404f;
+  padding-top: 16px;
+  font-size: .85rem;
+  color: #a9b3ac;
+}
+
+.sidebar .who form { margin-top: 8px; }
+
+.sidebar .who button {
+  background: none;
+  border: 1px solid #45525f;
+  color: #cfd3ce;
+  padding: 6px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: .82rem;
+}
+.sidebar .who button:hover { border-color: var(--ochre); color: #fff; }
+
+/* ---------- Main content ---------- */
+main {
+  padding: 34px 42px;
+  max-width: 1040px;
+}
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.page-head p {
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
+  font-size: .92rem;
+}
+
+.flash {
+  display: none;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  background: var(--panel);
+  margin-bottom: 20px;
+  font-size: .92rem;
+}
+.flash.error { border-left-color: var(--danger); }
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 30px;
+}
+
+.stat {
+  background: var(--panel);
+  padding: 18px;
+}
+
+.stat .num {
+  font-family: "Source Serif 4", serif;
+  font-size: 2rem;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.stat .label {
+  color: var(--text-muted);
+  font-size: .82rem;
+  margin-top: 6px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 22px;
+  margin-bottom: 26px;
+}
+
+form.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: .85rem;
+}
+
+.field label { color: var(--text-muted); }
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: .93rem;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  min-width: 190px;
+}
+
+textarea { min-height: 70px; resize: vertical; }
+
+input:focus, select:focus, textarea:focus, button:focus, a:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
+
+button, .btn {
+  font-family: inherit;
+  font-size: .9rem;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+
+button:hover, .btn:hover { background: var(--teal-dark); }
+
+button.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 6px 12px;
+  font-size: .8rem;
+}
+button.btn-danger:hover { background: var(--danger); color: #fff; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: .78rem;
+}
+
+tr:hover td { background: rgba(47,111,98,.04); }
+
+.pill {
+  display: inline-block;
+  padding: 2px 9px;
+  font-size: .76rem;
+  border: 1px solid var(--line);
+  color: var(--text-muted);
+}
+
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+}
+
+.login-box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 40px;
+  width: 340px;
+}
+
+.login-box h1 { margin-bottom: 4px; }
+.login-box p.sub { color: var(--text-muted); margin-bottom: 22px; font-size: .88rem; }
+.login-box .field { margin-bottom: 14px; }
+.login-box input { width: 100%; }
+.login-box button { width: 100%; margin-top: 6px; }
+
+@media (max-width: 780px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { flex-direction: row; flex-wrap: wrap; padding: 16px; }
+  .sidebar .who { margin-top: 0; border: none; padding: 0; }
+  main { padding: 22px; }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingresar · ThesisVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-box">
+    <h1>ThesisVista</h1>
+    <p class="sub">Panel administrador</p>
+    <div id="flash" class="flash error"></div>
+    <form id="form-login">
+      <div class="field">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required autofocus>
+      </div>
+      <div class="field">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+      </div>
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+</div>
+<script src="js/common.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

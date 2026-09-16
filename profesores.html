@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesores · ThesisVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-placeholder"></div>
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Profesores</h1>
+        <p>Asigna qué profesor dicta cada materia a cada grupo.</p>
+      </div>
+    </div>
+
+    <div id="flash" class="flash"></div>
+
+    <div class="panel">
+      <h2>Nueva asignación</h2>
+      <form class="inline-form" id="form-asignacion">
+        <div class="field">
+          <label for="id_materia">Materia</label>
+          <select id="id_materia" name="id_materia" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="id_grupo">Grupo</label>
+          <select id="id_grupo" name="id_grupo" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="id_profesor">Profesor</label>
+          <select id="id_profesor" name="id_profesor" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <button type="submit">Asignar</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Asignaciones actuales (<span id="total-asignaciones">0</span>)</h2>
+      <table>
+        <thead>
+          <tr><th>Materia</th><th>Grupo</th><th>Profesor</th><th></th></tr>
+        </thead>
+        <tbody id="tbody-asignaciones">
+          <tr><td colspan="4" style="color:var(--text-muted);">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="js/common.js"></script>
+<script src="js/profesores.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horarios · ThesisVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-placeholder"></div>
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Horarios</h1>
+        <p>Define cuándo y dónde se dicta cada materia a cada grupo.</p>
+      </div>
+    </div>
+
+    <div id="flash" class="flash"></div>
+
+    <div class="panel">
+      <h2>Nuevo horario</h2>
+      <form class="inline-form" id="form-horario">
+        <div class="field">
+          <label for="id_materia">Materia</label>
+          <select id="id_materia" name="id_materia" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="id_grupo">Grupo</label>
+          <select id="id_grupo" name="id_grupo" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dia_semana">Día</label>
+          <select id="dia_semana" name="dia_semana" required>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="hora_inicio">Hora inicio</label>
+          <input type="time" id="hora_inicio" name="hora_inicio" required>
+        </div>
+        <div class="field">
+          <label for="hora_fin">Hora fin</label>
+          <input type="time" id="hora_fin" name="hora_fin" required>
+        </div>
+        <div class="field">
+          <label for="salon">Salón</label>
+          <input type="text" id="salon" name="salon" placeholder="Ej: 302">
+        </div>
+        <button type="submit">Añadir horario</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Horarios definidos (<span id="total-horarios">0</span>)</h2>
+      <table>
+        <thead>
+          <tr><th>Día</th><th>Hora</th><th>Materia</th><th>Grupo</th><th>Salón</th><th></th></tr>
+        </thead>
+        <tbody id="tbody-horarios">
+          <tr><td colspan="6" style="color:var(--text-muted);">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="js/common.js"></script>
+<script src="js/horarios.js"></script>
+</body>
+</html>

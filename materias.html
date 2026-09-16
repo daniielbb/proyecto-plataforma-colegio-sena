@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materias · ThesisVista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div id="sidebar-placeholder"></div>
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Materias</h1>
+        <p>Crea las materias del programa y elimina las que ya no se dicten.</p>
+      </div>
+    </div>
+
+    <div id="flash" class="flash"></div>
+
+    <div class="panel">
+      <h2>Nueva materia</h2>
+      <form class="inline-form" id="form-materia">
+        <div class="field">
+          <label for="nombre_materia">Nombre</label>
+          <input type="text" id="nombre_materia" name="nombre_materia" required>
+        </div>
+        <div class="field">
+          <label for="id_curso">Programa</label>
+          <select id="id_curso" name="id_curso" required>
+            <option value="">Selecciona...</option>
+          </select>
+        </div>
+        <div class="field" style="flex:1 1 220px;">
+          <label for="descripcion">Descripción (opcional)</label>
+          <input type="text" id="descripcion" name="descripcion">
+        </div>
+        <button type="submit">Añadir materia</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Materias existentes (<span id="total-materias">0</span>)</h2>
+      <table>
+        <thead>
+          <tr><th>Materia</th><th>Programa</th><th>Descripción</th><th></th></tr>
+        </thead>
+        <tbody id="tbody-materias">
+          <tr><td colspan="4" style="color:var(--text-muted);">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="js/common.js"></script>
+<script src="js/materias.js"></script>
+</body>
+</html>

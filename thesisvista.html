@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThesisVista - Gestión de Proyectos Académicos</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 70px; /* evita que el navbar fijo tape el título de la sección */
+      }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: #52331e;
+      }
+      .resource-link {
+        color: #B1754A;
+        text-decoration: none;
+        display: block;
+      }
+      .resource-link:hover {
+        text-decoration: underline;
+      }
+      .help-card {
+        text-decoration: none;
+        display: block;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* ---------- Navbar ---------- */
+      .bg-brown {
+        background-color: #a98467 !important;
+      }
+      .navbar-brown .nav-link {
+        color: #FAF7F0 !important;
+        font-weight: 500;
+      }
+      .navbar-brown .nav-link:hover {
+        color: #FFF !important;
+        text-decoration: underline;
+      }
+      .navbar-brown .navbar-brand {
+        color: #FAF7F0 !important;
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+      .nav-link.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      /* ---------- Banner ---------- */
+      .banner {
+        height: 420px;
+        background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+          url("https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #faf3e0;
+        padding-left: 10%;
+      }
+      .banner h1 {
+        font-size: 2.8rem;
+        margin: 0;
+      }
+      .banner p {
+        font-size: 1.2rem;
+        max-width: 500px;
+        margin: 15px 0;
+      }
+      .banner button {
+        background-color: #B1754A;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .banner button:hover {
+        background-color: #8b6b4d;
+      }
+
+      /* ---------- Utilidades ---------- */
+      .section-title {
+        color: #B1754A;
+        font-weight: 700;
+      }
+      .section-subtitle {
+        color: #6b4f36;
+      }
+      .card-soft {
+        background-color: #f5f2ef;
+        border-radius: 10px;
+        padding: 25px;
+        height: 100%;
+      }
+      .badge-brown {
+        background-color: #B1754A;
+        color: #fff;
+      }
+      .team-photo {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #e8d7c3;
+      }
+      .plan-card {
+        min-height: 100%;
+      }
+      .accordion-button:not(.collapsed) {
+        background-color: #f0e3d7;
+        color: #6b4f36;
+      }
+      .accordion-button:focus {
+        box-shadow: 0 0 0 0.2rem rgba(177,117,74,0.25);
+      }
+      .footer-link {
+        color: white;
+        text-decoration: none;
+      }
+      .footer-link:hover {
+        text-decoration: underline;
+      }
+      .map-placeholder {
+        height: 300px;
+        background: #e0d5c5 url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80") center/cover;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar navbar-expand-lg bg-brown navbar-brown sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+          <img src="Logo.jpg" alt="Logo ThesisVista" height="36" class="me-2" style="border-radius:6px;">
+          THESISVISTA
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="window.scrollTo({top:0, behavior:'smooth'})">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicio">Servicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#plataforma">Plataforma</a></li>
+            <li class="nav-item"><a class="nav-link" href="#planes">Planes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#faqs">FAQs</a></li>
+            <li class="nav-item"><a class="nav-link" href="#ayuda">Ayuda</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===================== BANNER ===================== -->
+    <section class="banner">
+      <h1>Organiza tus proyectos con claridad</h1>
+      <p>Gestiona tus proyectos, completa las fases y aumenta tu progreso.</p>
+      <div>
+        <button onclick="document.getElementById('planes').scrollIntoView({behavior:'smooth'})">Ver planes</button>
+      </div>
+    </section>
+
+    <!-- ===================== MISIÓN / VISIÓN ===================== -->
+    <div class="container mt-5">
+      <div class="row align-items-start">
+        <div class="col-md-6">
+          <h2 class="mt-4 section-title">Misión</h2>
+          <p>ThesisVista aportará en la gestión de proyectos mediante la implementación de fases, lo cual permitirá avances
+            significativos en los proyectos de los estudiantes; asimismo, simplificará procesos en el área administrativa y docente.
+          </p>
+
+          <h2 class="mt-4 section-title">Visión</h2>
+          <p>
+            Thesis Vista se proyectará como una plataforma integral que cumpla con todos los objetivos establecidos,
+            abarcando su funcionamiento óptimo, un diseño intuitivo y la automatización eficiente de procesos.
+          </p>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+               alt="Imagen de proyecto" width="500" height="350" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== NOSOTROS ===================== -->
+    <div class="container mt-5" id="nosotros">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center order-md-2">
+          <img src="https://plus.unsplash.com/premium_photo-1745835774540-3b9a76cce838?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170"
+               alt="Trabajo en equipo" width="500" height="350" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 order-md-1">
+          <h2 class="mt-4 section-title">Nosotros</h2>
+          <p>Somos ThesisVista, un proyecto nacido en la empresa PixelCode con el propósito de transformar la gestión académica.
+            Creemos que el camino hacia el desarrollo de un proyecto de síntesis no tiene por qué ser un proceso tedioso ni desorganizado.
+            Por eso, hemos creado una solución integral que digitaliza, centraliza y da estructura a cada etapa de la investigación.
+          </p>
+        </div>
+      </div>
+
+      <!-- Logros y reconocimientos -->
+      <div class="row text-center mt-4 g-3">
+        <div class="col-md-3 col-6">
+          <h3 class="section-title mb-0">1</h3>
+          <p class="section-subtitle small">Proyectos gestionados</p>
+        </div>
+        <div class="col-md-3 col-6">
+          <h3 class="section-title mb-0">1</h3>
+          <p class="section-subtitle small">Instituciones aliadas</p>
+        </div>
+        <div class="col-md-3 col-6">
+          <h3 class="section-title mb-0">2025</h3>
+          <p class="section-subtitle small">Reconocimiento a la Innovación Educativa, PixelCode</p>
+        </div>
+        <div class="col-md-3 col-6">
+          <h3 class="section-title mb-0">98%</h3>
+          <p class="section-subtitle small">Satisfacción de usuarios</p>
+        </div>
+      </div>
+
+      <!-- Equipo directivo -->
+      <h3 class="text-center section-title mt-5">Equipo Directivo</h3>
+      <p class="text-center section-subtitle mb-4"></p>
+      <div class="row text-center g-4">
+        <div class="col-md-4 col-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjds095-TI6THG7W28y0aWDT8mH1TKPhBc1MIzOw1apA&s=10" class="team-photo mb-3" alt="Foto directora general">
+          <h5 class="mb-0">Mariana Parra</h5>
+          <p class="section-subtitle small mb-1">Desarrollador web</p>
+        </div>
+        <div class="col-md-4 col-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjds095-TI6THG7W28y0aWDT8mH1TKPhBc1MIzOw1apA&s=10" class="team-photo mb-3" alt="Foto director de tecnología">
+          <h5 class="mb-0">Sara Niño</h5>
+          <p class="section-subtitle small mb-1">Desarrollador web</p>
+        </div>
+        <div class="col-md-4 col-6">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjds095-TI6THG7W28y0aWDT8mH1TKPhBc1MIzOw1apA&s=10" class="team-photo mb-3" alt="Foto líder de producto">
+          <h5 class="mb-0">Isabella Onofre</h5>
+          <p class="section-subtitle small mb-1">Desarrollador web</p>
+        </div>
+      </div>
+    <!-- ===================== SERVICIO ===================== -->
+    <div class="container mt-5" id="servicio">
+      <h2 class="text-center section-title">Nuestro Servicio</h2>
+      <p class="text-center section-subtitle mb-4" style="max-width:700px;margin:auto;">
+        ThesisVista es una plataforma integral diseñada para optimizar y modernizar la gestión de
+        proyectos en las instituciones educativas. Nuestro servicio consiste en la implementación
+        de un sistema basado en fases estructuradas modificables que permite a los estudiantes
+        registrar avances significativos y transparentes, visualizados a través de una barra de progreso.
+        De manera simultánea, la plataforma simplifica la carga operativa en las áreas administrativa y docente.
+      </p>
+
+      <!-- Beneficios y características -->
+      <div class="row g-4 mt-2">
+        <div class="col-md-4">
+          <div class="card-soft text-center">
+            <h5 class="section-title">Fases configurables</h5>
+            <p class="small mb-0">Define las etapas del proyecto según el reglamento de cada institución.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft text-center">
+            <h5 class="section-title">Progreso en tiempo real</h5>
+            <p class="small mb-0">Estudiantes y profesores pueden ven el avance en una barra visual.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft text-center">
+            <h5 class="section-title">Menos trámites</h5>
+            <p class="small mb-0">Reduce la perdida de datos, plagio y permite un seguimiento digital centralizado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== PLATAFORMA / PRODUCTO ===================== -->
+    <div class="container mt-5" id="plataforma">
+      <h2 class="text-center section-title">La Plataforma</h2>
+      <p class="text-center section-subtitle mb-4" style="max-width:700px;margin:auto;">
+        Conoce las herramientas que ThesisVista pone a disposición de estudiantes, profesores y administrativos academicos.
+      </p>
+      <div class="row g-4">
+        <div class="col-md-3 col-6">
+          <div class="card-soft text-center">
+            <h6 class="section-title">Panel de fases</h6>
+            <p class="small mb-0">Visualiza cada etapa del proyecto y su estado actual.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-soft text-center">
+            <h6 class="section-title">Mensajería interna</h6>
+            <p class="small mb-0">Comunicación directa entre estudiante y profesor.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-soft text-center">
+            <h6 class="section-title">Repositorio de documentos</h6>
+            <p class="small mb-0">Sube entregables y accede al historial de versiones.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-soft text-center">
+            <h6 class="section-title">Reportes para docentes</h6>
+            <p class="small mb-0">Exporta el avance de todos los grupos a cargo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonios -->
+      <h3 class="text-center section-title mt-5">Lo que dicen nuestros usuarios</h3>
+      <div class="row g-4 mt-1">
+        <div class="col-md-4">
+          <div class="card-soft">
+            <p class="fst-italic small">"Con ThesisVista pude ver exactamente en qué fase estaba mi proyecto y qué faltaba por entregar."</p>
+            <p class="small fw-bold mb-0">— Martin Lopez</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft">
+            <p class="fst-italic small">"Simplificó el seguimiento de más de 30 proyectos de grado que tengo a cargo cada semestre."</p>
+            <p class="small fw-bold mb-0">— Docente </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft">
+            <p class="fst-italic small">"La coordinación académica ahora tiene visibilidad total del estado de todos los proyectos."</p>
+            <p class="small fw-bold mb-0">— Coordinador Académico</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== PLANES ===================== -->
+    <div class="container text-center my-5" id="planes">
+      <h2 class="section-title fw-bold">Nuestros Planes</h2>
+      <p class="section-subtitle mb-5">
+        Elige el plan que mejor se adapte a tus necesidades y lleva tu gestión al siguiente nivel.
+      </p>
+
+      <div class="row justify-content-center g-4">
+        <div class="col-md-3">
+          <div class="plan-card rounded shadow p-4" style="background-color: #f5f2ef;">
+            <h4 style="color:#B1754A;">Básico</h4>
+            <p class="small section-subtitle">Ideal para proyectos individuales que inician su fase de anteproyecto.</p>
+            <h3 style="color:#6b4f36;">Gratis</h3>
+            <ul class="list-unstyled section-subtitle text-start">
+              <li>✔ Hasta 1 proyecto activo</li>
+              <li>✔ Barra de progreso básica</li>
+              <li>✔ Soporte por correo</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="plan-card rounded shadow p-4" style="background-color: #f0e3d7;">
+            <h4 style="color:#B1754A;">Profesional</h4>
+            <p class="small section-subtitle">Para grupos de trabajo con asesor y varias fases simultáneas.</p>
+            <h3 style="color:#6b4f36;">$30.000 / mes</h3>
+            <ul class="list-unstyled section-subtitle text-start">
+              <li>✔ Hasta 5 proyectos activos</li>
+              <li>✔ Mensajería con el asesor</li>
+              <li>✔ Repositorio de documentos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="plan-card rounded shadow p-4" style="background-color: #e8d7c3;">
+            <h4 style="color:#B1754A;">Premium</h4>
+            <p class="small section-subtitle">Pensado para instituciones que gestionan todos sus programas.</p>
+            <h3 style="color:#6b4f36;">$50.000 / mes</h3>
+            <ul class="list-unstyled section-subtitle text-start">
+              <li>✔ Proyectos ilimitados</li>
+              <li>✔ Reportes para coordinación</li>
+              <li>✔ Soporte prioritario</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== BLOG ===================== -->
+    <div class="container mt-5" id="blog">
+      <h2 class="text-center section-title">Blog y Noticias</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card-soft">
+            <span class="badge badge-brown mb-2">Consejos</span>
+            <h5>5 claves para avanzar tu proyecto de síntesis a tiempo</h5>
+            <p class="small text-muted mb-1">Por Alexander Gomez</p>
+            <p class="small">Cómo organizar tus entregables por fases y evitar retrasos de última hora.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft">
+            <span class="badge badge-brown mb-2">Novedades</span>
+            <h5>ThesisVista se integra con nuevas instituciones aliadas</h5>
+            <p class="small">Conoce las instituciones que ya gestionan sus proyectos con nuestra plataforma.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft">
+            <span class="badge badge-brown mb-2">Guías</span>
+            <h5>Cómo comunicarte mejor con tu asesor de proyecto</h5>
+            <p class="small text-muted mb-1">Matias Vichada </p>
+            <p class="small">Buenas prácticas para aprovechar la mensajería interna de ThesisVista.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FAQS ===================== -->
+    <div class="container mt-5" id="faqs">
+      <h2 class="text-center section-title">Preguntas Frecuentes</h2>
+      <div class="accordion" id="faqAccordion" style="max-width:800px;margin:auto;">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              ¿Cómo creo mi primer proyecto en ThesisVista?
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body small">Regístrate, elige el plan que se ajuste a tu necesidad y crea tu proyecto desde el panel principal siguiendo el asistente de configuración de fases.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              ¿Puedo cambiar de plan más adelante?
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body small">Sí, puedes subir o bajar de plan en cualquier momento desde la configuración de tu cuenta.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              ¿Mi institución puede usar ThesisVista para todos los programas?
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body small">Sí, el plan Premium está diseñado para que coordinación académica administre proyectos de múltiples programas.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+              ¿Qué pasa con mi información si cancelo mi cuenta?
+            </button>
+          </h2>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body small">Puedes exportar tus documentos y avances antes de cancelar; consulta nuestros Términos y Condiciones para más detalle.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== CENTRO DE AYUDA ===================== -->
+    <div class="container mt-5" id="ayuda">
+      <h2 class="text-center section-title">Centro de Ayuda</h2>
+      <p class="text-center section-subtitle mb-5" style="max-width:700px;margin:auto;">
+        Guías, respuestas rápidas y canales de soporte para sacarle el máximo provecho a ThesisVista.
+      </p>
+
+      <!-- 1. Base de conocimiento -->
+      <h5 class="section-subtitle text-uppercase small mb-3">Base de Conocimiento</h5>
+      <div class="row g-4 mb-5">
+        <div class="col-md-3 col-6">
+          <a href="#tutoriales" class="help-card">
+            <div class="card-soft text-center h-100">
+              <div class="fs-2 mb-2">🚀</div>
+              <h6 class="section-title mb-1">Primeros Pasos</h6>
+              <p class="small mb-0">Crea tu cuenta y configura tu primer proyecto.</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3 col-6">
+          <a href="#planes" class="help-card">
+            <div class="card-soft text-center h-100">
+              <div class="fs-2 mb-2">💳</div>
+              <h6 class="section-title mb-1">Cuenta y Planes</h6>
+              <p class="small mb-0">Cambios de plan, facturación y pagos.</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3 col-6">
+          <a href="#plataforma" class="help-card">
+            <div class="card-soft text-center h-100">
+              <div class="fs-2 mb-2">📁</div>
+              <h6 class="section-title mb-1">Gestión de Proyectos</h6>
+              <p class="small mb-0">Fases, documentos y mensajería interna.</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3 col-6">
+          <a href="#faq-soporte" class="help-card">
+            <div class="card-soft text-center h-100">
+              <div class="fs-2 mb-2">🔒</div>
+              <h6 class="section-title mb-1">Seguridad y Datos</h6>
+              <p class="small mb-0">Privacidad, respaldo y acceso a tu cuenta.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Tutoriales y guías -->
+      <h5 class="section-subtitle text-uppercase small mb-3" id="tutoriales">Tutoriales y Guías</h5>
+      <div class="row g-4 mb-5">
+        <div class="col-md-4">
+          <div class="card-soft h-100">
+            <span class="badge badge-brown mb-2">Guía</span>
+            <h6 class="mb-1">Cómo crear tu primer proyecto</h6>
+            <p class="small mb-0">Paso a paso desde el registro hasta la configuración de fases.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft h-100">
+            <span class="badge badge-brown mb-2">Video</span>
+            <h6 class="mb-1">Uso de la mensajería interna</h6>
+            <p class="small mb-0">Aprende a comunicarte con tu asesor sin salir de la plataforma.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-soft h-100">
+            <span class="badge badge-brown mb-2">Guía</span>
+            <h6 class="mb-1">Subir y versionar documentos</h6>
+            <p class="small mb-0">Organiza tus entregables en el repositorio de documentos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. FAQs de soporte técnico -->
+      <h5 class="section-subtitle text-uppercase small mb-3" id="faq-soporte">FAQs de Soporte Técnico</h5>
+      <div class="accordion mb-5" id="faqSoporteAccordion" style="max-width:800px;margin:auto;">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqs1">
+              No puedo iniciar sesión en mi cuenta, ¿qué hago?
+            </button>
+          </h2>
+          <div id="faqs1" class="accordion-collapse collapse show" data-bs-parent="#faqSoporteAccordion">
+            <div class="accordion-body small">Verifica tu correo y contraseña, usa la opción "Olvidé mi contraseña" o escríbenos desde el formulario de soporte más abajo.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqs2">
+              Mi barra de progreso no se actualiza
+            </button>
+          </h2>
+          <div id="faqs2" class="accordion-collapse collapse" data-bs-parent="#faqSoporteAccordion">
+            <div class="accordion-body small">Actualiza la página; si el problema continúa, puede deberse a una fase pendiente de aprobación por tu asesor.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqs3">
+              No puedo subir un documento al repositorio
+            </button>
+          </h2>
+          <div id="faqs3" class="accordion-collapse collapse" data-bs-parent="#faqSoporteAccordion">
+            <div class="accordion-body small">Revisa el peso y formato del archivo. Si el error persiste, contáctanos con una captura del mensaje.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-5">
+        <!-- 4. Formulario de soporte -->
+        <div class="col-md-6">
+          <h5 class="section-subtitle text-uppercase small mb-3">Formulario de Soporte</h5>
+          <form>
+            <div class="mb-3">
+              <label class="form-label small">Correo asociado a tu cuenta</label>
+              <input type="email" class="form-control" placeholder="tucorreo@ejemplo.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Categoría</label>
+              <select class="form-select">
+                <option>Acceso a la cuenta</option>
+                <option>Facturación y planes</option>
+                <option>Errores en la plataforma</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Describe el problema</label>
+              <textarea class="form-control" rows="4" placeholder="Cuéntanos qué está pasando..."></textarea>
+            </div>
+            <button type="submit" class="btn" style="background-color:#B1754A;color:white;">Enviar ticket de soporte</button>
+          </form>
+        </div>
+
+        <!-- 5. Enlaces a recursos adicionales -->
+        <div class="col-md-6">
+          <h5 class="section-subtitle text-uppercase small mb-3">Recursos Adicionales</h5>
+          <div class="card-soft">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-3"><a href="#blog" class="resource-link">📰 Blog y noticias de ThesisVista</a></li>
+              <li class="mb-3"><a href="#planes" class="resource-link">💳 Comparar planes y precios</a></li>
+              <li class="mb-3"><a href="#terminos" class="resource-link">📄 Términos y Política de Privacidad</a></li>
+              <li class="mb-3"><a href="#contacto" class="resource-link">✉️ Contacto general</a></li>
+              <li class="mb-0"><a href="mailto:thesisvista@gmail.com" class="resource-link">📧 Escríbenos directamente</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== CONTACTO ===================== -->
+    <div class="container mt-5" id="contacto">
+      <h2 class="text-center section-title">Contacto</h2>
+      <p class="text-center section-subtitle mb-4">¿Tienes dudas? Escríbenos y te responderemos pronto.</p>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <label class="form-label small">Nombre</label>
+              <input type="text" class="form-control" placeholder="Tu nombre">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Correo</label>
+              <input type="email" class="form-control" placeholder="tucorreo@ejemplo.com">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Mensaje</label>
+              <textarea class="form-control" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+            </div>
+            <button type="submit" class="btn" style="background-color:#B1754A;color:white;">Enviar mensaje</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="map-placeholder mb-3" role="img" aria-label="Mapa de ubicación de ThesisVista"></div>
+          <p class="small mb-1"><strong>📞 Teléfono:</strong> +57 322 416 0972</p>
+          <p class="small mb-1"><strong>✉️ Correo:</strong> thesisvista@gmail.com</p>
+          <p class="small mb-1"><strong>🕐 Horario:</strong> Lunes a viernes, 8:00 a.m. - 6:00 p.m.</p>
+          <p class="small mb-0"><strong>📍 Redes:</strong> Instagram / LinkedIn / Facebook</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TÉRMINOS Y CONDICIONES ===================== -->
+    <div class="container mt-5 mb-5" id="terminos">
+      <div class="accordion" style="max-width:800px;margin:auto;">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#terminosBody">
+              Términos y Condiciones / Política de Privacidad
+            </button>
+          </h2>
+          <div id="terminosBody" class="accordion-collapse collapse">
+            <div class="accordion-body small">
+              [Editar con el texto legal definitivo, revisado idealmente por un asesor legal]<br><br>
+              <strong>Política de privacidad:</strong> los datos personales registrados en ThesisVista se usan únicamente para la gestión de proyectos académicos y no se comparten con terceros sin consentimiento.<br><br>
+              <strong>Términos de uso:</strong> el usuario se compromete a hacer un uso adecuado de la plataforma y de la información de sus proyectos.<br><br>
+              <strong>Responsabilidades:</strong> ThesisVista provee la herramienta de gestión; la validez académica de los proyectos sigue dependiendo del reglamento de cada institución.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer style="background-color: #a98467; color: white; padding: 40px 0; text-align: center;">
+      <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left;">
+        <div style="flex: 1; min-width: 220px; margin: 10px;">
+          <h4 style="color: #faf3e0;">Datos de Contacto</h4>
+          <p>📞 Teléfono: +57 322 416 0972</p>
+          <p>✉️ Correo: thesisvista@gmail.com</p>
+        </div>
+
+        <div style="flex: 1; min-width: 220px; margin: 10px;">
+          <h4 style="color: #faf3e0;">Enlaces Rápidos</h4>
+          <p><a href="#nosotros" class="footer-link">Nosotros</a></p>
+          <p><a href="#servicio" class="footer-link">Servicio</a></p>
+          <p><a href="#blog" class="footer-link">Blog</a></p>
+          <p><a href="#faqs" class="footer-link">FAQs</a></p>
+          <p><a href="#ayuda" class="footer-link">Centro de Ayuda</a></p>
+        </div>
+
+        <div style="flex: 1; min-width: 220px; margin: 10px;">
+          <h4 style="color: #faf3e0;">Legal</h4>
+          <p><a href="#terminos" class="footer-link">Términos y Condiciones</a></p>
+          <p><a href="#carreras" class="footer-link">Carreras</a></p>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px; font-size: 14px; border-top: 1px solid #faf3e0; padding-top: 15px;">
+        © 2025 ThesisVista - Todos los derechos reservados
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Cierra el menú de navegación móvil automáticamente al tocar cualquier enlace,
+      // para que la navegación entre secciones (Nosotros, Servicio, Ayuda, etc.) sea fluida.
+      document.querySelectorAll('#navMenu .nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var menu = document.getElementById('navMenu');
+          if (menu.classList.contains('show')) {
+            new bootstrap.Collapse(menu).hide();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

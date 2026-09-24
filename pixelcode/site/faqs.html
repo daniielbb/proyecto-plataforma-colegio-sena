@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>FAQs · PixelCode</title>
+<meta name="description" content="Preguntas frecuentes sobre PixelCode.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="assets/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="mobile-bar">
+  <a href="index.html" class="brandmark"><img src="assets/logo.webp" alt="Logo PixelCode"><span class="word">PIXELCODE</span></a>
+  <button id="mobileMenuBtn">Menú</button>
+</div>
+<div id="navMenuMobile">
+  <a href="index.html" class="">Inicio</a>
+  <a href="nosotros.html" class="">Nosotros</a>
+  <a href="servicios.html" class="">Servicios</a>
+  <a href="productos.html" class="">Plataforma</a>
+  <a href="blog.html" class="">Blog</a>
+  <a href="testimonios.html" class="">Testimonios</a>
+  <a href="portafolio.html" class="">Portafolio</a>
+  <a href="soporte.html" class="">Soporte</a>
+  <a href="faqs.html" class="active">FAQs</a>
+  <a href="contacto.html" class="">Contacto</a>
+</div>
+
+<nav class="sidebar">
+  <a class="brandmark" href="index.html"><img src="assets/logo.webp" alt="Logo PixelCode"><span class="word">PIXELCODE</span></a>
+  <ul class="side-nav" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px;">
+    <li><a href="index.html" class="">Inicio</a></li>
+    <li><a href="nosotros.html" class="">Nosotros</a></li>
+    <li><a href="servicios.html" class="">Servicios</a></li>
+    <li><a href="productos.html" class="">Plataforma</a></li>
+    <li><a href="blog.html" class="">Blog</a></li>
+    <li><a href="testimonios.html" class="">Testimonios</a></li>
+    <li><a href="portafolio.html" class="">Portafolio</a></li>
+    <li><a href="soporte.html" class="">Soporte</a></li>
+    <li><a href="faqs.html" class="active">FAQs</a></li>
+    <li><a href="contacto.html" class="">Contacto</a></li>
+  </ul>
+  <div class="side-foot">
+    <a href="carreras.html">Carreras</a><br>
+    <a href="terminos.html">Términos y condiciones</a><br>
+    © 2025 PixelCode
+  </div>
+</nav>
+
+<div class="main">
+
+  <div class="page-head">
+    <span class="idx">FAQs</span>
+    <h1>Preguntas frecuentes</h1>
+    <p>Resolvemos las dudas más comunes sobre cuentas, planes y uso de la plataforma.</p>
+  </div>
+
+  <section>
+    <h5 style="margin-bottom:20px;">Cuenta y primeros pasos</h5>
+    <div class="accordion" style="max-width:760px;margin-bottom:44px;">
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">¿Cómo creo mi primer proyecto en PixelCode?</button></h2>
+        <div id="faq1" class="accordion-collapse collapse show"><div class="accordion-body">Regístrate, elige el plan que se ajuste a tu necesidad y crea tu plataforma </div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">¿Qué pasa con mi información si cancelo mi cuenta?</button></h2>
+        <div id="faq4" class="accordion-collapse collapse"><div class="accordion-body">Puedes exportar los documentos existentes y avances antes de cancelar; consulta nuestros <a href="terminos.html">Términos y Condiciones</a> para más detalle.</div></div>
+      </div>
+    </div>
+
+    <h5 style="margin-bottom:20px;">Planes y facturación</h5>
+    <div class="accordion" style="max-width:760px;margin-bottom:44px;">
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">¿Puedo cambiar de plan más adelante?</button></h2>
+        <div id="faq2" class="accordion-collapse collapse"><div class="accordion-body">Sí, puedes subir o bajar de plan en cualquier momento desde la configuración de tu cuenta.</div></div>
+      </div>
+      
+    </div>
+
+    <h5 style="margin-bottom:20px;">Plataforma</h5>
+    <div class="accordion" style="max-width:760px;">
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">¿Envian avances?</button></h2>
+        <div id="faq5" class="accordion-collapse collapse"><div class="accordion-body">Sí, cada avance se muestra previamente al cliente para continuar</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom:none;">
+    <div class="sec-head"><span class="idx"></span><h2>¿No encontraste tu respuesta?</h2></div>
+    <div class="two-col">
+      <form style="max-width:480px;">
+        <div class="mb-3"><label class="form-label">Tu pregunta</label><textarea class="form-control" rows="3" placeholder="Escribe tu pregunta..."></textarea></div>
+        <div class="mb-3"><label class="form-label">Correo (opcional, para avisarte la respuesta)</label><input type="email" class="form-control" placeholder="tucorreo@ejemplo.com"></div>
+        <button type="submit" class="btn btn-brass">Enviar pregunta</button>
+      </form>
+      <div></div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <h4>PixelCode</h4>
+        <p style="color:var(--text-dim);font-size:.86rem;max-width:230px;">Gestión de proyectos académicos por fases, para estudiantes, asesores e instituciones.</p>
+      </div>
+      <div>
+        <h4>Datos de contacto</h4>
+        <a href="tel:+573224160972">📞 +57 322 416 0972</a>
+        <a href="mailto:pixelcode@gmail.com">✉️ pixelcode@gmail.com</a>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="blog.html">Blog</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="soporte.html">Centro de ayuda</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terminos.html">Términos y condiciones</a>
+        <a href="carreras.html">Carreras</a>
+        <a href="portafolio.html">Portafolio</a>
+        <a href="testimonios.html">Testimonios</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2025 PixelCode — Todos los derechos reservados</span>
+      <span>Instagram · LinkedIn · Facebook</span>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.querySelectorAll('.flip-card, .flip-quote').forEach(function(card){
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+    card.setAttribute('tabindex','0');
+    card.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ card.classList.toggle('flipped'); e.preventDefault(); } });
+  });
+  var mBtn = document.getElementById('mobileMenuBtn');
+  if(mBtn){ mBtn.addEventListener('click', function(){ document.getElementById('navMenuMobile').classList.toggle('show'); }); }
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Archivos internos (que empiezan con _) no accesibles por URL
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>

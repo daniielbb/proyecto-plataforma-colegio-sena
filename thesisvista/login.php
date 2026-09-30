@@ -1,55 +1,70 @@
 <?php
 /**
- * Inicio de sesión de Thesis Vista.
- * - Acepta contraseñas en texto plano (datos originales) y las migra a
- *   password_hash() en el primer inicio de sesión correcto.
- * - Registra usuarios.ultimo_acceso (extensión v1).
+ * THESISVISTA - Inicio de sesión (común para los 3 roles)
+ *
+ * Flujo: formulario -> POST -> buscar correo en `usuarios` -> verificar contraseña
+ *        -> ¿válido? SÍ: guardar sesión y enviar al panel de su rol
+ *                    NO: mostrar error y volver a mostrar el formulario
  */
-require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/seguridad.php';
 
-if (!empty($_SESSION['usuario_id']) && ($_SESSION['rol'] ?? '') === 'profesor') {
-    redirigir('docente/dashboard.php');
+// Si ya inició sesión, se envía directamente a su panel.
+if (usuario_logueado() && isset(PANELES[$_SESSION['rol'] ?? ''])) {
+    redirigir(PANELES[$_SESSION['rol']]);
 }
 
-$error = '';
+$error  = '';
 $correo = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    verificar_csrf();
-    $correo = trim($_POST['correo'] ?? '');
-    $clave  = (string)($_POST['contrasena'] ?? '');
+    $correo     = trim($_POST['correo'] ?? '');
+    $contrasena = $_POST['contrasena'] ?? '';
 
-    $st = $pdo->prepare('SELECT usuario_id, nombre, apellido, contrasena, rol FROM usuarios WHERE correo = ?');
-    $st->execute([$correo]);
-    $u = $st->fetch();
+    if (!csrf_valido()) {
+        $error = 'La sesión del formulario expiró. Intente de nuevo.';
+    } elseif ($correo === '' || $contrasena === '') {
+        $error = 'Escriba su correo y su contraseña.';
+    } else {
+        $pdo  = conectar();
+        $stmt = $pdo->prepare('SELECT usuario_id, nombre, apellido, correo, contrasena, rol
+                               FROM usuarios WHERE correo = ?');
+        $stmt->execute([$correo]);
+        $usuario = $stmt->fetch();
 
-    $valida = false;
-    if ($u) {
-        $info = password_get_info($u['contrasena']);
-        if ($info['algo'] !== null && $info['algo'] !== 0) {
-            $valida = password_verify($clave, $u['contrasena']);
-        } else {
-            // Contraseña antigua en texto plano: se compara y se migra a hash
-            $valida = hash_equals($u['contrasena'], $clave);
-            if ($valida) {
+        $valido = false;
+        if ($usuario) {
+            $guardada = $usuario['contrasena'];
+
+            if (password_get_info($guardada)['algoName'] !== 'unknown') {
+                // Contraseña ya cifrada con password_hash()
+                $valido = password_verify($contrasena, $guardada);
+            } elseif (hash_equals($guardada, $contrasena)) {
+                // Contraseña antigua en texto plano: es correcta, se cifra ahora mismo.
+                $valido = true;
                 $pdo->prepare('UPDATE usuarios SET contrasena = ? WHERE usuario_id = ?')
-                    ->execute([password_hash($clave, PASSWORD_DEFAULT), $u['usuario_id']]);
+                    ->execute([password_hash($contrasena, PASSWORD_DEFAULT), $usuario['usuario_id']]);
             }
         }
-    }
 
-    if (!$valida) {
-        $error = 'Correo o contraseña incorrectos.';
-    } elseif ($u['rol'] !== 'profesor') {
-        $error = 'Esta interfaz es exclusiva para docentes.';
-    } else {
-        session_regenerate_id(true);
-        $_SESSION['usuario_id'] = (int)$u['usuario_id'];
-        $_SESSION['rol']        = $u['rol'];
-        $_SESSION['nombre']     = $u['nombre'] . ' ' . $u['apellido'];
-        $pdo->prepare('UPDATE usuarios SET ultimo_acceso = ? WHERE usuario_id = ?')
-            ->execute([date('Y-m-d H:i:s'), $u['usuario_id']]);
-        redirigir('docente/dashboard.php');
+        if ($valido) {
+            session_regenerate_id(true);
+            $_SESSION['usuario_id'] = (int) $usuario['usuario_id'];
+            $_SESSION['nombre']     = $usuario['nombre'] . ' ' . $usuario['apellido'];
+            $_SESSION['rol']        = $usuario['rol'];
+
+            // Columna opcional (solo existe si se aplicó la extensión del módulo docente).
+            try {
+                $pdo->prepare('UPDATE usuarios SET ultimo_acceso = NOW() WHERE usuario_id = ?')
+                    ->execute([$usuario['usuario_id']]);
+            } catch (PDOException $ex) {
+                // La columna no existe: no pasa nada.
+            }
+
+            mensaje('exito', 'Bienvenido(a), ' . $usuario['nombre'] . '.');
+            redirigir(PANELES[$usuario['rol']]);
+        }
+
+        $error = 'Correo o contraseña incorrectos. Intente nuevamente.';
     }
 }
 ?>
@@ -58,27 +73,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Iniciar sesión · Thesis Vista</title>
-    <link rel="stylesheet" href="<?= url('css/styles.css') ?>">
+    <title>Iniciar sesión · THESISVISTA</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="pagina-login">
-    <div class="login-caja">
+    <main class="login-caja">
         <div class="login-marca">
-            <span class="marca-logo">TV</span>
-            <h1>Thesis Vista</h1>
-            <p>Seguimiento de proyectos académicos</p>
+            <span class="logo">TV</span>
+            <h1>THESISVISTA</h1>
+            <p>Plataforma de gestión de proyectos y tesis</p>
         </div>
-        <?php if ($error): ?><div class="alerta alerta-error"><?= e($error) ?></div><?php endif; ?>
-        <form method="post" class="formulario">
-            <?= csrf_campo() ?>
-            <label>Correo
-                <input type="text" name="correo" value="<?= e($correo) ?>" required autofocus>
-            </label>
-            <label>Contraseña
-                <input type="password" name="contrasena" required>
-            </label>
-            <button class="btn btn-bloque" type="submit">Ingresar</button>
+
+        <?php mostrar_mensajes(); ?>
+        <?php if ($error): ?>
+            <div class="alerta alerta-error"><?= e($error) ?></div>
+        <?php endif; ?>
+
+        <form method="post" action="login.php" class="formulario">
+            <?= campo_csrf() ?>
+            <label for="correo">Correo electrónico</label>
+            <input type="text" id="correo" name="correo" value="<?= e($correo) ?>" required autofocus maxlength="150">
+
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit" class="btn btn-primario btn-bloque">Iniciar sesión</button>
         </form>
-    </div>
+    </main>
 </body>
 </html>

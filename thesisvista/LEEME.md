@@ -1,68 +1,90 @@
-# Thesis Vista · Interfaz del docente
+# THESISVISTA · Interfaz del administrador
 
 PHP 8 + MySQL/MariaDB (PDO), HTML y CSS. Sin frameworks y sin JavaScript.
 
 ## Instalación (XAMPP)
 
 1. Copie la carpeta `thesisvista` en `C:\xampp\htdocs\`.
-2. En phpMyAdmin ejecute, en este orden:
-   1. `senatv.sql` (base original)
-   2. `senatv_extension_seguimiento.sql` (extensión v1)
-   3. `sql/senatv_extension_v2_docente.sql` (esta entrega: estado *Corregido* y campo *Recomendación*)
-3. Revise `config/conexion.php` (usuario, clave y `BASE_URL`).
-4. Abra `http://localhost/thesisvista/` e ingrese con un usuario de rol `profesor`
-   (ej: `arthur@gmail` / `2222`). La contraseña se convierte a `password_hash` en el primer ingreso.
+2. Importe `senatv.sql` en phpMyAdmin (base `senatv`). **No se requiere ningún cambio de estructura.**
+   Las extensiones del módulo docente son opcionales; si están instaladas, el panel también las tiene en cuenta.
+3. Revise `config/database.php` (host, base, usuario, contraseña).
+4. Abra `http://localhost/thesisvista/` e ingrese con el administrador de la base:
+   `admin@thesisvista.com` / `admin123`.
+
+> Las contraseñas de la base original están en texto plano. En el primer inicio de sesión
+> de cada usuario, el sistema las convierte automáticamente a `password_hash()`.
+> Los usuarios nuevos se guardan cifrados desde el principio.
 
 ## Estructura
 
 ```
-config/conexion.php          Conexión PDO y constantes
-includes/auth.php            Sesión, rol docente, CSRF, mensajes
-includes/funciones.php       Permisos, progreso, consultas compartidas
-includes/header.php/footer.php  Barra lateral y plantilla
-login.php / logout.php
-docente/dashboard.php        Inicio con indicadores
-docente/grupos.php           Mis grupos (tarjetas)
-docente/grupo.php            Detalle del grupo + participación individual
-docente/proyectos.php        Lista de proyectos
-docente/proyecto.php         Progreso, fases como carpetas, siguiente fase, estado
-docente/fase.php             Detalle de fase, requisitos, documentos, historial
-docente/revision.php         Registrar / editar revisión
-docente/revisiones.php       Documentos por revisar
-docente/correcciones.php     Correcciones pendientes
-docente/historial.php        Historial de revisiones (tabla)
-docente/perfil.php           Datos del docente y cambio de contraseña
-docente/ver_documento.php    Descarga protegida de archivos
-css/styles.css
-uploads/documentos/          Archivos subidos (bloqueado con .htaccess)
+index.php                     Envía al login o al panel del rol
+login.php / logout.php        Inicio y cierre de sesión (común a los 3 roles)
+config/database.php           Conexión PDO (único archivo con credenciales)
+includes/seguridad.php        Sesión, control de rol, CSRF, mensajes, e()
+includes/pendiente.php        Página temporal de módulos en construcción
+css/styles.css                Estilos (marrón, beige, crema, blanco)
+
+admin/
+  dashboard.php               Panel: totales, accesos y últimos registros
+  usuarios.php                Lista + búsqueda + filtro por rol
+  crear_usuario.php           INSERT INTO usuarios
+  editar_usuario.php          UPDATE usuarios (contraseña opcional, rol)
+  cambiar_rol.php             UPDATE usuarios SET rol
+  eliminar_usuario.php        Confirmación + DELETE (solo si no tiene registros relacionados)
+  proyectos.php               Lista + filtros (título/estudiante, estado, docente) + avance
+  crear_proyecto.php          INSERT INTO tesis (+ relaciones y fases)
+  ver_proyecto.php            Consulta: datos, avance (vista_progreso_tesis), fases, documentos, comentarios
+  editar_proyecto.php         UPDATE tesis
+  asignar_profesor.php        UPDATE tesis SET id_profesor
+  eliminar_proyecto.php       Confirmación + borrado en transacción
+  includes/                   Plantilla (header/footer), formularios y funciones del admin
+
+docente/index.php             Entrada del módulo docente (redirige a dashboard.php cuando exista)
+estudiante/index.php          Entrada del módulo estudiante (redirige a dashboard.php cuando exista)
 ```
 
-## Cómo se usan las tablas
+## Tablas y campos usados
 
-| Función | Tabla / campo |
+| Función | Tabla / campos |
 |---|---|
-| Grupos del docente | `docente_curso` → `grupos.id_curso` |
-| Proyectos | `tesis` (docente asignado = `tesis.id_profesor`) |
-| Fases y progreso | `fases` (activas del curso) + `tesis_fase`; progreso = completadas / total |
-| Siguiente fase | `tesis_fase`: cierra la actual (Completada) y abre la nueva (En progreso, fecha límite = hoy + `duracion_dias`) |
-| Documentos | `documento` (`id_fase`, `estado`, `ruta_archivo`, `fecha_modificacion`) |
-| Revisión | `correcciones` (estado, corrección, recomendación, calificación 0–5) |
-| Comentario | `comentarios` (misma fecha que la revisión, con `id_usuario` = docente) |
-| Requisitos | `requisitos_fase` |
-| Participación | `estudiante_grupo.rol_grupo/estado`, autoría de `tesis`, comentarios, `estudiante_incentivo` |
+| Login y usuarios | `usuarios(usuario_id, nombre, apellido, correo, contrasena, rol)` |
+| Roles | `usuarios.rol` ENUM: `administrador`, `profesor` (se muestra como *Docente*), `estudiante` |
+| Proyectos | `tesis(id_tesis, titulo, resumen, estado, fecha_registro, id_estudiante, id_profesor, id_grupo)` |
+| Grupo / curso | `grupos`, `cursos` |
+| Relaciones que se mantienen | `estudiante_grupo`, `docente_curso` |
+| Fases y avance | `fases`, `tesis_fase`, vista `vista_progreso_tesis` |
+| Consulta | `documento`, `comentarios` |
 
-Estados de revisión: Entregado = *Pendiente de revisión*, En revisión, Requiere ajustes = *Requiere correcciones*, Corregido, Aprobado.
+## Reglas importantes
 
-## Permisos
+- **Eliminar usuario:** las claves foráneas no tienen `ON DELETE`, así que solo se puede borrar un usuario
+  sin tesis, grupos, cursos, fases, comentarios ni incentivos. La página de confirmación muestra qué lo bloquea.
+- **Cambiar rol:** está bloqueado si el usuario tiene registros con su rol actual
+  (por ejemplo, un docente con tesis asignadas). El administrador no puede cambiar su propio rol ni eliminarse.
+- **Eliminar proyecto:** en una sola transacción se borran `tesis_fase`, `documento`, `comentarios`
+  (y `correcciones`/`requisitos_fase` si existen). Los incentivos del estudiante se conservan con `id_tesis = NULL`.
+  Los archivos físicos subidos por el módulo docente no se borran del disco.
+- **Grupo de la tesis:** si se elige un grupo, el estudiante se agrega a `estudiante_grupo` y el docente a
+  `docente_curso` si aún no están. Así el módulo docente puede ver el proyecto.
+  La casilla *Crear el plan de fases* inserta en `tesis_fase` las fases activas del curso que falten.
 
-- Solo usuarios con rol `profesor` (se verifica en la BD en cada petición).
-- Cada grupo, proyecto, fase, documento y revisión se valida contra los cursos del docente; si no corresponde, responde 403.
-- Solo se pueden editar las revisiones y requisitos propios.
-- No hay opciones de administración (usuarios, cursos, grupos, fases).
-- Formularios protegidos con token CSRF; consultas preparadas.
+## Seguridad
 
-## Para el módulo del estudiante
+PDO con consultas preparadas · `password_hash()`/`password_verify()` · sesiones con
+`session_regenerate_id()` · el rol se vuelve a comprobar en la base de datos en cada página
+· token CSRF en todos los formularios POST · `htmlspecialchars()` en todo lo que se muestra
+· las carpetas `config/`, `includes/` y `admin/includes/` están bloqueadas con `.htaccess`.
 
-Debe **leer** (sin formularios de creación/edición): `comentarios` y `correcciones` del docente,
-`documento.estado`, `tesis_fase` (fase actual, fechas, observaciones) y `requisitos_fase`.
-Cuando el estudiante vuelva a subir un documento corregido debe poner `documento.estado = 'Corregido'`.
+## Para integrar los módulos docente y estudiante
+
+- El login ya envía a cada rol a su carpeta (`PANELES` en `includes/seguridad.php`).
+- En cada página nueva:
+  ```php
+  require_once __DIR__ . '/../includes/seguridad.php';
+  $usuario = requerir_rol('profesor');   // o 'estudiante'
+  ```
+- Al crear `docente/dashboard.php` o `estudiante/dashboard.php`, el `index.php` de esa carpeta redirige allí solo.
+- **Módulo docente de la entrega anterior:** usaba su propio `login.php`, `config/conexion.php` e `includes/auth.php`.
+  No copie su `login.php` encima de este. Para unificarlo, sus páginas deben usar `requerir_rol('profesor')`
+  y `$_SESSION['usuario_id']` de este login, y su conexión debe usar `conectar()` de `config/database.php`.

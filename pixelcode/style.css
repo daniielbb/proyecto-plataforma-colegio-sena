@@ -61,13 +61,13 @@ img{max-width:100%;display:block;}
 .main{margin-left:236px;}
 
 /* ---------- Banner THESISVISTA ---------- */
-.tv-banner{
+/*.tv-banner{
   display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
   margin:0 64px;padding:26px 34px;border-radius:var(--r);
   background:linear-gradient(120deg,#12213F,#1B3royalty 60%,#254B94);
   background:linear-gradient(120deg,#12213F 0%,#1B3B72 55%,#2B57A8 100%);
   border:1px solid var(--accent-dim);text-decoration:none;position:relative;overflow:hidden;
-}
+}*/
 .tv-banner::after{
   content:"";position:absolute;inset:0;
   background:radial-gradient(420px circle at 85% 30%, rgba(111,227,255,.18), transparent 60%);

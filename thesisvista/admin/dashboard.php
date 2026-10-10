@@ -1,25 +1,29 @@
 <?php
-/** THESISVISTA - Panel principal del administrador */
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 $pdo   = conectar();
 
-// Cantidad de usuarios por rol
+
 $por_rol = array_fill_keys(array_keys(ROLES), 0);
 foreach ($pdo->query('SELECT rol, COUNT(*) AS total FROM usuarios GROUP BY rol') as $fila) {
     $por_rol[$fila['rol']] = (int) $fila['total'];
 }
 
-// Cantidad de tesis por estado
+
 $por_estado = array_fill_keys(ESTADOS_TESIS, 0);
 foreach ($pdo->query('SELECT estado, COUNT(*) AS total FROM tesis GROUP BY estado') as $fila) {
     $por_estado[$fila['estado']] = (int) $fila['total'];
 }
 $total_tesis = array_sum($por_estado);
 
-// Últimos registros
+$total_grupos = (int) $pdo->query('SELECT COUNT(*) FROM grupos')->fetchColumn();
+
+
 $ultimos_usuarios = $pdo->query('SELECT usuario_id, nombre, apellido, correo, rol
                                  FROM usuarios ORDER BY usuario_id DESC LIMIT 5')->fetchAll();
 
@@ -30,13 +34,14 @@ $ultimas_tesis = $pdo->query('SELECT t.id_tesis, t.titulo, t.estado, t.fecha_reg
 
 $titulo  = 'Panel de administración';
 $seccion = 'inicio';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="rejilla">
     <div class="dato"><span>Administradores</span><strong><?= $por_rol['administrador'] ?></strong></div>
     <div class="dato"><span>Docentes</span><strong><?= $por_rol['profesor'] ?></strong></div>
     <div class="dato"><span>Estudiantes</span><strong><?= $por_rol['estudiante'] ?></strong></div>
+    <div class="dato"><span>Grupos</span><strong><?= $total_grupos ?></strong></div>
     <div class="dato"><span>Proyectos / tesis</span><strong><?= $total_tesis ?></strong></div>
 </section>
 
@@ -45,8 +50,12 @@ require __DIR__ . '/includes/header.php';
         <h3>1. Gestión de usuarios</h3>
         <p>Ver, crear, editar, cambiar rol y eliminar usuarios.</p>
     </a>
+    <a class="acceso" href="grupos.php">
+        <h3>2. Gestión de grupos</h3>
+        <p>Crear grupos y asignarles todos los estudiantes que necesiten.</p>
+    </a>
     <a class="acceso" href="proyectos.php">
-        <h3>2. Gestión de proyectos / tesis</h3>
+        <h3>3. Gestión de proyectos / tesis</h3>
         <p>Ver, crear, editar, consultar, asignar docente y eliminar proyectos.</p>
     </a>
 </section>
@@ -91,4 +100,4 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

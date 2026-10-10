@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Editar proyecto / tesis
- * GET ?id= -> carga la tesis | POST -> validar -> UPDATE tesis
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -66,10 +63,10 @@ $titulo   = 'Editar proyecto / tesis';
 $seccion  = 'proyectos';
 $es_nuevo = false;
 $accion   = 'editar_proyecto.php?id=' . $id;
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:900px">
     <h2>Editar: <?= e($tesis['titulo']) ?> <small>(ID <?= $id ?>)</small></h2>
-    <?php require __DIR__ . '/includes/form_proyecto.php'; ?>
+    <?php require __DIR__ . '/../includes/form_proyecto.php'; ?>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

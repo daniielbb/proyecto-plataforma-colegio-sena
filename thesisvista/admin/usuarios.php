@@ -1,11 +1,10 @@
 <?php
-/** THESISVISTA - Gestión de usuarios: lista con búsqueda y filtro por rol */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
-// Filtros recibidos por GET
 $buscar = trim($_GET['buscar'] ?? '');
 $rol    = $_GET['rol'] ?? '';
 if (!isset(ROLES[$rol])) $rol = '';
@@ -30,7 +29,7 @@ $usuarios = $stmt->fetchAll();
 
 $titulo  = 'Gestión de usuarios';
 $seccion = 'usuarios';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="tarjeta">
@@ -82,4 +81,4 @@ require __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Crear usuario
- * Formulario -> POST -> validar -> INSERT INTO usuarios -> mensaje -> lista de usuarios
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -34,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     . nombre_rol($datos['rol']) . ' (ID ' . conectar()->lastInsertId() . ').');
                 redirigir('usuarios.php');
             } catch (PDOException $ex) {
-                // 23000 = violación de clave única (correo repetido)
+
                 $errores[] = $ex->getCode() === '23000'
                     ? 'Ya existe un usuario con ese correo.'
                     : 'No se pudo guardar el usuario en la base de datos.';
@@ -47,10 +44,10 @@ $titulo   = 'Crear usuario';
 $seccion  = 'usuarios';
 $es_nuevo = true;
 $accion   = 'crear_usuario.php';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:760px">
     <h2>Datos del nuevo usuario</h2>
-    <?php require __DIR__ . '/includes/form_usuario.php'; ?>
+    <?php require __DIR__ . '/../includes/form_usuario.php'; ?>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

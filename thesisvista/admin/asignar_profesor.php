@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Asignar docente a un proyecto / tesis
- * GET ?id= -> muestra el docente actual | POST -> UPDATE tesis SET id_profesor
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -51,7 +48,7 @@ $profesores = usuarios_por_rol('profesor');
 
 $titulo  = 'Asignar docente';
 $seccion = 'proyectos';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:620px">
     <h2><?= e($tesis['titulo']) ?></h2>
@@ -76,4 +73,4 @@ require __DIR__ . '/includes/header.php';
         </div>
     </form>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

@@ -1,0 +1,84 @@
+/* =========================================================
+   THESISVISTA - Panel ESTUDIANTE
+   Se carga después de styles.css y docente.css (misma paleta marrón, beige, crema, blanco
+   y misma estructura visual). Solo agrega lo propio del estudiante; no cambia los otros paneles.
+   ========================================================= */
+
+.estudiante { --gris-bloqueo: #b9ab9b; }
+.e-suave { color: var(--beige); opacity: .8; }
+
+/* Grupo actual en la barra lateral */
+.e-grupo-actual {
+    margin: 14px 4px 0; padding: 12px 14px; border-radius: 10px;
+    background: var(--beige-claro); border: 1px solid var(--borde);
+}
+.e-grupo-actual small { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--tierra); }
+.e-grupo-actual strong { display: block; font-family: var(--serif); font-size: 17px; color: var(--marron-oscuro); }
+.e-grupo-actual span { font-size: 13px; color: var(--texto-suave); }
+.e-grupo-actual select { width: 100%; margin-top: 6px; padding: 7px 8px; border: 1px solid var(--borde); border-radius: 8px; background: #fff; font: inherit; font-size: 14px; }
+
+/* Bienvenida con la identidad del grupo */
+.e-identidad { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px 28px; margin: 0; flex: 1; }
+.e-identidad dt { font-size: 11.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--beige); opacity: .85; }
+.e-identidad dd { margin: 3px 0 0; font-family: var(--serif); font-size: 19px; color: #fff; font-weight: 600; }
+.e-identidad dd small { font-family: inherit; font-size: 13px; color: var(--beige); font-weight: 400; }
+
+/* Línea de fases: estado bloqueado */
+.e-linea .bloqueada a { color: var(--texto-suave); }
+.e-linea .bloqueada .d-linea-punto { background: #ece6de; color: var(--texto-suave); border-style: dashed; }
+.e-linea .bloqueada strong { color: var(--texto-suave); }
+
+/* Tarjetas de fase */
+.e-fase h3 a { color: inherit; text-decoration: none; }
+.e-fase.bloqueada { background: repeating-linear-gradient(135deg, var(--papel) 0 12px, #f5efe6 12px 24px); }
+.e-fase.bloqueada h3 { color: var(--texto-suave); }
+.e-condicion {
+    display: flex; gap: 8px; align-items: flex-start;
+    margin: 0; padding: 9px 12px; border-radius: 9px; font-size: 13.5px;
+    background: #f3ede4; color: #5d5047; border: 1px dashed var(--gris-bloqueo);
+}
+
+/* Fase bloqueada (detalle) */
+.e-bloqueo { display: flex; gap: 20px; align-items: flex-start; border-style: dashed; background: var(--papel); }
+.e-bloqueo h2 { margin-bottom: 6px; }
+.e-bloqueo-ico {
+    width: 72px; height: 72px; flex-shrink: 0; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #ece6de; color: var(--texto-suave);
+}
+
+/* Contadores por estado */
+.e-estados { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.e-estados li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--borde); border-radius: 10px; background: var(--papel); }
+.e-estados strong { font-family: var(--serif); font-size: 18px; color: var(--marron-oscuro); }
+
+/* Proyecto */
+.e-proyecto + .e-proyecto { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--borde); }
+.e-proyecto > h3 { font-size: 20px; margin-bottom: 12px; }
+
+/* Incentivos */
+.e-incentivo.obtenido { border-color: #bfd8c4; background: #fbfdf9; }
+.e-otorgado { color: var(--verde) !important; font-weight: 600; }
+.e-una-columna { grid-template-columns: 1fr; }
+
+/* Avisos */
+.e-avisos li.nuevo { background: #fffaf2; margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 8px; }
+.e-avisos li.fijo .d-act-ico { background: var(--ambar-fondo); color: var(--ambar); }
+.e-avisos a { color: var(--texto); }
+.act-comentario .d-act-ico { background: var(--beige-claro); color: var(--marron); }
+.act-desbloqueo .d-act-ico { background: var(--verde-fondo); color: var(--verde); }
+
+/* Responsive (tablet y celular) */
+@media (max-width: 860px) {
+    .e-grupo-actual { margin: 8px 0; }
+    .e-bloqueo { flex-direction: column; }
+    .d-bienvenida { padding: 20px; }
+    .e-identidad dd { font-size: 17px; }
+}
+@media (max-width: 520px) {
+    .d-resumen { grid-template-columns: repeat(2, 1fr); }
+    .d-carpetas { grid-template-columns: 1fr; }
+    .d-entrega { flex-wrap: wrap; }
+    .d-encabezado h1 { font-size: 22px; }
+    .d-usuario { width: 100%; justify-content: space-between; }
+}

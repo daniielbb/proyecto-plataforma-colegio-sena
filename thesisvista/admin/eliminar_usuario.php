@@ -1,12 +1,5 @@
 <?php
-/**
- * THESISVISTA - Eliminar usuario
- * GET ?id= -> página de confirmación (sin JavaScript)
- * POST     -> DELETE FROM usuarios (solo si ninguna otra tabla lo referencia)
- *
- * Las claves foráneas de la base (tesis, comentarios, grupos, cursos...) no tienen
- * ON DELETE, por eso un usuario con registros relacionados no se puede borrar.
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
 require_once __DIR__ . '/includes/funciones_admin.php';
 

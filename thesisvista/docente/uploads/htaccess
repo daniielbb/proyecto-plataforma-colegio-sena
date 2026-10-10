@@ -1,0 +1,2 @@
+# Los archivos se sirven solo a traves de PHP (docente/archivo.php) validando permisos.
+Require all denied

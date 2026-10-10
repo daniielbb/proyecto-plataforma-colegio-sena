@@ -1,14 +1,7 @@
 <?php
-/**
- * THESISVISTA - Inicio de sesión (común para los 3 roles)
- *
- * Flujo: formulario -> POST -> buscar correo en `usuarios` -> verificar contraseña
- *        -> ¿válido? SÍ: guardar sesión y enviar al panel de su rol
- *                    NO: mostrar error y volver a mostrar el formulario
- */
+
 require_once __DIR__ . '/includes/seguridad.php';
 
-// Si ya inició sesión, se envía directamente a su panel.
 if (usuario_logueado() && isset(PANELES[$_SESSION['rol'] ?? ''])) {
     redirigir(PANELES[$_SESSION['rol']]);
 }
@@ -36,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $guardada = $usuario['contrasena'];
 
             if (password_get_info($guardada)['algoName'] !== 'unknown') {
-                // Contraseña ya cifrada con password_hash()
+                
                 $valido = password_verify($contrasena, $guardada);
             } elseif (hash_equals($guardada, $contrasena)) {
-                // Contraseña antigua en texto plano: es correcta, se cifra ahora mismo.
+                
                 $valido = true;
                 $pdo->prepare('UPDATE usuarios SET contrasena = ? WHERE usuario_id = ?')
                     ->execute([password_hash($contrasena, PASSWORD_DEFAULT), $usuario['usuario_id']]);
@@ -52,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['nombre']     = $usuario['nombre'] . ' ' . $usuario['apellido'];
             $_SESSION['rol']        = $usuario['rol'];
 
-            // Columna opcional (solo existe si se aplicó la extensión del módulo docente).
+           
             try {
                 $pdo->prepare('UPDATE usuarios SET ultimo_acceso = NOW() WHERE usuario_id = ?')
                     ->execute([$usuario['usuario_id']]);
@@ -73,14 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Iniciar sesión · THESISVISTA</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Iniciar sesión · THESIS VISTA</title>
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body class="pagina-login">
     <main class="login-caja">
         <div class="login-marca">
             <span class="logo">TV</span>
-            <h1>THESISVISTA</h1>
+            <h1>THESIS VISTA</h1>
             <p>Plataforma de gestión de proyectos y tesis</p>
         </div>
 

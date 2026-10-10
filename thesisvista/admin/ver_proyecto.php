@@ -1,7 +1,7 @@
 <?php
-/** THESISVISTA - Consultar la información completa de un proyecto / tesis */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 $pdo   = conectar();
@@ -13,26 +13,25 @@ if (!$tesis) {
     redirigir('proyectos.php');
 }
 
-// Avance: se usa la vista vista_progreso_tesis que ya existe en la base de datos.
+
 $stmt = $pdo->prepare('SELECT total_fases, fases_completadas, porcentaje_avance FROM vista_progreso_tesis WHERE id_tesis = ?');
 $stmt->execute([$id]);
 $progreso   = $stmt->fetch() ?: ['total_fases' => 0, 'fases_completadas' => 0, 'porcentaje_avance' => 0];
 $porcentaje = (float) ($progreso['porcentaje_avance'] ?? 0);
 
-// Fases del proyecto
+
 $stmt = $pdo->prepare('SELECT f.orden, f.nombre_fase, tf.estado, tf.fecha_inicio, tf.fecha_limite, tf.fecha_completada
                        FROM tesis_fase tf JOIN fases f ON f.id_fase = tf.id_fase
                        WHERE tf.id_tesis = ? ORDER BY f.orden');
 $stmt->execute([$id]);
 $fases = $stmt->fetchAll();
 
-// Documentos
+
 $stmt = $pdo->prepare('SELECT nombre_documento, tipo_documento, fecha_subida FROM documento
                        WHERE id_tesis = ? ORDER BY fecha_subida DESC, id_documento DESC');
 $stmt->execute([$id]);
 $documentos = $stmt->fetchAll();
 
-// Comentarios
 $stmt = $pdo->prepare('SELECT c.comentario, c.fecha, u.nombre, u.apellido, u.rol, f.nombre_fase
                        FROM comentarios c
                        JOIN usuarios u ON u.usuario_id = c.id_usuario
@@ -41,12 +40,15 @@ $stmt = $pdo->prepare('SELECT c.comentario, c.fecha, u.nombre, u.apellido, u.rol
 $stmt->execute([$id]);
 $comentarios = $stmt->fetchAll();
 
+// Todos los estudiantes del grupo participan en el proyecto
+$integrantes = $tesis['id_grupo'] !== null ? estudiantes_de_grupo((int) $tesis['id_grupo']) : [];
+
 $clase_fase = ['Pendiente' => 'etiqueta-gris', 'En progreso' => 'etiqueta-ambar',
                'Completada' => 'etiqueta-verde', 'Atrasada' => 'etiqueta-roja'];
 
 $titulo  = 'Consultar proyecto';
 $seccion = 'proyectos';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="tarjeta">
@@ -63,12 +65,21 @@ require __DIR__ . '/includes/header.php';
         <dt>ID</dt>               <dd><?= $id ?></dd>
         <dt>Estado</dt>           <dd><span class="etiqueta <?= clase_estado($tesis['estado']) ?>"><?= e($tesis['estado']) ?></span></dd>
         <dt>Fecha de registro</dt><dd><?= e($tesis['fecha_registro']) ?></dd>
-        <dt>Estudiante</dt>       <dd><?= e($tesis['est_nombre'] . ' ' . $tesis['est_apellido']) ?> <small>· <?= e($tesis['est_correo']) ?></small></dd>
+        <dt>Responsable</dt>      <dd><?= e($tesis['est_nombre'] . ' ' . $tesis['est_apellido']) ?> <small>· <?= e($tesis['est_correo']) ?></small></dd>
+        <?php if ($integrantes): ?>
+        <dt>Integrantes (<?= count($integrantes) ?>)</dt>
+        <dd><?php foreach ($integrantes as $i): ?>
+                <?= e($i['nombre'] . ' ' . $i['apellido']) ?> <small>· <?= e($i['correo']) ?></small><br>
+            <?php endforeach; ?></dd>
+        <?php endif; ?>
         <dt>Docente</dt>          <dd><?= e($tesis['prof_nombre'] . ' ' . $tesis['prof_apellido']) ?> <small>· <?= e($tesis['prof_correo']) ?></small></dd>
         <dt>Grupo / curso</dt>
-        <dd><?= $tesis['nombre_grupo'] !== null
-                ? e($tesis['nombre_grupo'] . ' · ' . $tesis['nombre_curso'] . ($tesis['ficha'] ? ' (ficha ' . $tesis['ficha'] . ')' : ''))
-                : 'Sin grupo asignado' ?></dd>
+        <dd><?php if ($tesis['nombre_grupo'] !== null): ?>
+                <a href="ver_grupo.php?id=<?= (int) $tesis['id_grupo'] ?>"><?= e($tesis['nombre_grupo']) ?></a>
+                <?= e(' · ' . "grado " . $tesis['nombre_curso'] ) ?>
+            <?php else: ?>
+                Sin grupo asignado
+            <?php endif; ?></dd>
         <dt>Resumen</dt>          <dd><?= nl2br(e($tesis['resumen'])) ?></dd>
     </dl>
 </div>
@@ -128,4 +139,4 @@ require __DIR__ . '/includes/header.php';
 
 <a href="proyectos.php" class="btn btn-secundario">← Volver a proyectos</a>
 
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

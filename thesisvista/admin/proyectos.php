@@ -1,11 +1,11 @@
 <?php
-/** THESISVISTA - Gestión de proyectos / tesis: lista con filtros */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
-// Filtros recibidos por GET
+
 $buscar      = trim($_GET['buscar'] ?? '');
 $estado      = $_GET['estado'] ?? '';
 $id_profesor = (int) ($_GET['profesor'] ?? 0);
@@ -47,7 +47,7 @@ $profesores = usuarios_por_rol('profesor');
 
 $titulo  = 'Gestión de proyectos / tesis';
 $seccion = 'proyectos';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="tarjeta">
@@ -110,4 +110,4 @@ require __DIR__ . '/includes/header.php';
     </div>
 </div>
 
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

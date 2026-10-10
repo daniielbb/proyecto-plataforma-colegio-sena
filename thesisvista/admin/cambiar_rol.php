@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Cambiar rol de un usuario
- * GET ?id= -> muestra el rol actual | POST -> validar -> UPDATE usuarios SET rol
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -40,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $titulo  = 'Cambiar rol';
 $seccion = 'usuarios';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:560px">
     <h2><?= e($usuario['nombre'] . ' ' . $usuario['apellido']) ?></h2>
@@ -69,4 +66,4 @@ require __DIR__ . '/includes/header.php';
         </form>
     <?php endif; ?>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

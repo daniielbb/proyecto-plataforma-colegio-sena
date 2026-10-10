@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Crear proyecto / tesis
- * Formulario -> POST -> validar -> INSERT INTO tesis (+ relaciones) -> mensaje -> lista
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -62,7 +59,7 @@ $titulo   = 'Crear proyecto / tesis';
 $seccion  = 'proyectos';
 $es_nuevo = true;
 $accion   = 'crear_proyecto.php';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:900px">
     <h2>Datos del nuevo proyecto</h2>
@@ -70,6 +67,6 @@ require __DIR__ . '/includes/header.php';
         <div class="alerta alerta-aviso">Para crear un proyecto debe existir al menos un estudiante y un docente.
             <a href="crear_usuario.php">Crear usuario</a></div>
     <?php endif; ?>
-    <?php require __DIR__ . '/includes/form_proyecto.php'; ?>
+    <?php require __DIR__ . '/../includes/form_proyecto.php'; ?>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

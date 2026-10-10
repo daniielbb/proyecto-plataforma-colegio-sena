@@ -1,12 +1,5 @@
 <?php
-/**
- * THESISVISTA - Eliminar proyecto / tesis
- * GET ?id= -> página de confirmación con lo que se borrará (sin JavaScript)
- * POST     -> borra en una transacción los registros dependientes y luego la tesis.
- *
- * Las claves foráneas no tienen ON DELETE CASCADE, por eso se borran
- * primero las filas hijas en el orden correcto.
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
 require_once __DIR__ . '/includes/funciones_admin.php';
 
@@ -31,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo->beginTransaction();
 
-        // Tablas de la extensión del módulo docente (si existen)
+       
         if (existe_tabla('correcciones'))    $pdo->prepare('DELETE FROM correcciones WHERE id_tesis = ?')->execute([$id]);
         if (existe_tabla('requisitos_fase')) $pdo->prepare('DELETE FROM requisitos_fase WHERE id_tesis = ?')->execute([$id]);
 
-        // Tablas de la base original
+        
         $pdo->prepare('DELETE FROM comentarios WHERE id_tesis = ?')->execute([$id]);
         // Los incentivos son del estudiante: se conservan, solo se quita el vínculo con la tesis (id_tesis admite NULL).
         $pdo->prepare('UPDATE estudiante_incentivo SET id_tesis = NULL WHERE id_tesis = ?')->execute([$id]);

@@ -1,10 +1,7 @@
 <?php
-/**
- * THESISVISTA - Editar usuario (datos, contraseña opcional y rol)
- * GET ?id= -> carga el usuario | POST -> validar -> UPDATE usuarios
- */
+
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -62,10 +59,10 @@ $titulo   = 'Editar usuario';
 $seccion  = 'usuarios';
 $es_nuevo = false;
 $accion   = 'editar_usuario.php?id=' . $id;
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:760px">
     <h2>Editar: <?= e($usuario['nombre'] . ' ' . $usuario['apellido']) ?> <small>(ID <?= $id ?>)</small></h2>
-    <?php require __DIR__ . '/includes/form_usuario.php'; ?>
+    <?php require __DIR__ . '/../includes/form_usuario.php'; ?>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

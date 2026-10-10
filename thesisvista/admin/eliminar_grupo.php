@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../includes/seguridad.php';
-require_once __DIR__ . '/includes/funciones_admin.php';
+require_once __DIR__ . '/../includes/funciones_admin.php';
 
 $admin = requerir_rol('administrador');
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $titulo  = 'Eliminar grupo';
 $seccion = 'grupos';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../includes/header.php';
 ?>
 <div class="tarjeta" style="max-width:640px">
     <h2>¿Eliminar el grupo "<?= e($grupo['nombre_grupo']) ?>"?</h2>
